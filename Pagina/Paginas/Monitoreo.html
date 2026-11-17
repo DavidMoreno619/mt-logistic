@@ -1,0 +1,341 @@
+<section class="monitoring-page">
+
+    <!-- ENCABEZADO -->
+
+    <div class="monitoring-header">
+
+        <div>
+            <h1>Monitoreo</h1>
+
+            <p>
+                Seguimiento de unidades en tiempo real
+            </p>
+        </div>
+
+        <div class="monitoring-status">
+
+            <span class="connection-dot"></span>
+
+            Sistema conectado
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTENIDO -->
+
+    <div class="monitoring-layout">
+
+
+        <!-- =========================
+             LISTA DE UNIDADES
+             ========================= -->
+
+        <aside class="units-panel">
+
+            <div class="units-header">
+
+                <h2>Unidades</h2>
+
+                <span>3 activas</span>
+
+            </div>
+
+
+            <input type="text" class="unit-search" placeholder="Buscar unidad...">
+
+
+            <div class="units-list">
+
+
+                <!-- UNIDAD 1 -->
+
+                <div class="unit-item selected" data-unit="MT-001">
+
+                    <div class="unit-top">
+
+                        <strong>
+                            MT-001
+                        </strong>
+
+                        <span class="unit-online">
+                            En movimiento
+                        </span>
+
+                    </div>
+
+                    <p>
+                        Guadalajara → Monterrey
+                    </p>
+
+                    <small>
+                        78 km/h
+                    </small>
+
+                </div>
+
+
+                <!-- UNIDAD 2 -->
+
+                <div class="unit-item" data-unit="MT-004">
+
+                    <div class="unit-top">
+
+                        <strong>
+                            MT-004
+                        </strong>
+
+                        <span class="unit-stopped">
+                            Detenido
+                        </span>
+
+                    </div>
+
+                    <p>
+                        León → Guadalajara
+                    </p>
+
+                    <small>
+                        0 km/h
+                    </small>
+
+                </div>
+
+
+                <!-- UNIDAD 3 -->
+
+                <div class="unit-item" data-unit="MT-008">
+
+                    <div class="unit-top">
+
+                        <strong>
+                            MT-008
+                        </strong>
+
+                        <span class="unit-online">
+                            En movimiento
+                        </span>
+
+                    </div>
+
+                    <p>
+                        Tepic → Ciudad de México
+                    </p>
+
+                    <small>
+                        65 km/h
+                    </small>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             MAPA
+             ========================= -->
+
+        <section class="monitoring-map">
+
+
+            <!-- CONTROLES -->
+
+            <div class="map-controls">
+
+                <button>
+                    +
+                </button>
+
+                <button>
+                    −
+                </button>
+
+                <button>
+                    ⌖
+                </button>
+
+            </div>
+
+
+            <!-- MAPA PROVISIONAL -->
+
+            <div class="map-background">
+
+
+                <!-- RUTA -->
+
+                <div class="route-line"></div>
+
+                <!-- CAMIÓN 1 -->
+
+                <div class="truck-marker truck-one" data-unit="MT-001" title="MT-001">
+                    🚛
+                </div>
+
+                <!-- CAMIÓN 2 -->
+
+                <div class="truck-marker truck-two" data-unit="MT-004" title="MT-004">
+                    🚛
+                </div>
+
+                <!-- CAMIÓN 3 -->
+
+                <div class="truck-marker truck-three" data-unit="MT-008" title="MT-008">
+                    🚛
+                </div>
+
+                <div class="map-label label-gdl">
+                    Guadalajara
+                </div>
+
+                <div class="map-label label-mty">
+                    Monterrey
+                </div>
+
+                <div class="map-label label-tepic">
+                    Tepic
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+             INFORMACIÓN
+             ========================= -->
+
+        <aside class="unit-details">
+
+
+            <div class="details-header">
+
+                <div>
+
+                    <span>
+                        Unidad seleccionada
+                    </span>
+
+                    <h2 id="selectedUnit">
+                        MT-001
+                    </h2>
+
+                </div>
+
+                <span class="detail-status" id="selectedStatus">
+                    En movimiento
+                </span>
+
+            </div>
+
+            <!-- DATOS -->
+
+            <div class="unit-data">
+
+                <div class="data-item">
+
+                    <span>
+                        Velocidad
+                    </span>
+
+                    <strong id="selectedSpeed">
+                        78 km/h
+                    </strong>
+
+                </div>
+
+                <div class="data-item">
+
+                    <span>
+                        Ubicación
+                    </span>
+
+                    <strong id="selectedLocation">
+                        Guadalajara, Jalisco
+                    </strong>
+
+                </div>
+
+                <div class="data-item">
+
+                    <span>
+                        Dirección
+                    </span>
+
+                    <strong id="selectedDirection">
+                        Norte
+                    </strong>
+
+                </div>
+
+                <div class="data-item">
+
+                    <span>
+                        Última actualización
+                    </span>
+
+                    <strong id="selectedUpdate">
+                        Hace 10 segundos
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- VIAJE -->
+
+            <div class="trip-info">
+
+                <h3>
+                    Viaje actual
+                </h3>
+
+                <div class="trip-route">
+
+                    <span id="tripOrigin">
+                        Guadalajara
+                    </span>
+
+                    <span class="trip-arrow">
+                        →
+                    </span>
+
+                    <span id="tripDestination">
+                        Monterrey
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- RECORRIDO -->
+
+            <div class="trip-progress">
+
+                <div class="progress-header">
+
+                    <span>
+                        Progreso del viaje
+                    </span>
+
+                    <strong id="tripPercentage">
+                        42%
+                    </strong>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div class="progress-value"></div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</section>

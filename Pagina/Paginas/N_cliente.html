@@ -1,0 +1,280 @@
+<section class="client-form-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Agregar cliente</h1>
+
+            <p>
+                Registra la información del cliente
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <form
+        id="newClientForm"
+        class="form-card"
+    >
+
+        <h2>Información del cliente</h2>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="clientName">
+                    Nombre del cliente
+                </label>
+
+                <input
+                    type="text"
+                    id="clientName"
+                    placeholder="Ej. Juan Pérez"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientCompany">
+                    Empresa
+                </label>
+
+                <input
+                    type="text"
+                    id="clientCompany"
+                    placeholder="Ej. Transportes del Norte"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientPhone">
+                    Teléfono
+                </label>
+
+                <input
+                    type="tel"
+                    id="clientPhone"
+                    placeholder="Ej. 33 1234 5678"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientEmail">
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="clientEmail"
+                    placeholder="correo@empresa.com"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+        <h2 class="form-section-title">
+            Información fiscal
+        </h2>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="clientRFC">
+                    RFC
+                </label>
+
+                <input
+                    type="text"
+                    id="clientRFC"
+                    placeholder="Ej. ABC010101AAA"
+                    maxlength="13"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientTaxRegime">
+                    Régimen fiscal
+                </label>
+
+                <select id="clientTaxRegime">
+
+                    <option value="">
+                        Seleccionar
+                    </option>
+
+                    <option value="601">
+                        601 - General de Ley
+                    </option>
+
+                    <option value="603">
+                        603 - Personas Morales
+                    </option>
+
+                    <option value="612">
+                        612 - Personas Físicas
+                    </option>
+
+                    <option value="626">
+                        626 - Régimen Simplificado
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientPostalCode">
+                    Código postal fiscal
+                </label>
+
+                <input
+                    type="text"
+                    id="clientPostalCode"
+                    placeholder="Ej. 44100"
+                    maxlength="5"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientPaymentMethod">
+                    Método de pago
+                </label>
+
+                <select id="clientPaymentMethod">
+
+                    <option value="">
+                        Seleccionar
+                    </option>
+
+                    <option value="PUE">
+                        PUE - Pago en una exhibición
+                    </option>
+
+                    <option value="PPD">
+                        PPD - Pago en parcialidades
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <h2 class="form-section-title">
+            Dirección
+        </h2>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="clientStreet">
+                    Calle
+                </label>
+
+                <input
+                    type="text"
+                    id="clientStreet"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientNumber">
+                    Número
+                </label>
+
+                <input
+                    type="text"
+                    id="clientNumber"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientCity">
+                    Ciudad
+                </label>
+
+                <input
+                    type="text"
+                    id="clientCity"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientState">
+                    Estado
+                </label>
+
+                <input
+                    type="text"
+                    id="clientState"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button
+                type="button"
+                class="secondary-button"
+                id="cancelClient"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Guardar cliente
+            </button>
+
+        </div>
+
+    </form>
+
+</section>

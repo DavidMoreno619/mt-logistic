@@ -1,0 +1,260 @@
+<section class="invoice-form-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Nueva factura</h1>
+
+            <p>
+                Generación de factura a partir de una orden
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <form
+        id="newInvoiceForm"
+        class="form-card"
+    >
+
+        <h2>Datos de la factura</h2>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="invoiceOrder">
+                    Orden
+                </label>
+
+                <select
+                    id="invoiceOrder"
+                    required
+                >
+
+                    <option value="">
+                        Seleccionar orden
+                    </option>
+
+                    <option value="ORD-1025">
+                        ORD-1025 - Transportes del Norte
+                    </option>
+
+                    <option value="ORD-1026">
+                        ORD-1026 - Comercializadora GDL
+                    </option>
+
+                    <option value="ORD-1027">
+                        ORD-1027 - Distribuidora Occidente
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="invoiceClient">
+                    Cliente
+                </label>
+
+                <select
+                    id="invoiceClient"
+                    required
+                >
+
+                    <option value="">
+                        Seleccionar cliente
+                    </option>
+
+                    <option value="Transportes del Norte">
+                        Transportes del Norte
+                    </option>
+
+                    <option value="Comercializadora GDL">
+                        Comercializadora GDL
+                    </option>
+
+                    <option value="Distribuidora Occidente">
+                        Distribuidora Occidente
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="invoiceDate">
+                    Fecha
+                </label>
+
+                <input
+                    type="date"
+                    id="invoiceDate"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="paymentMethod">
+                    Método de pago
+                </label>
+
+                <select id="paymentMethod">
+
+                    <option value="">
+                        Seleccionar
+                    </option>
+
+                    <option value="PUE">
+                        PUE
+                    </option>
+
+                    <option value="PPD">
+                        PPD
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <h2 class="form-section-title">
+            Concepto
+        </h2>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="invoiceDescription">
+                    Descripción
+                </label>
+
+                <input
+                    type="text"
+                    id="invoiceDescription"
+                    placeholder="Servicio de transporte"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="invoiceQuantity">
+                    Cantidad
+                </label>
+
+                <input
+                    type="number"
+                    id="invoiceQuantity"
+                    value="1"
+                    min="1"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="invoicePrice">
+                    Precio unitario
+                </label>
+
+                <input
+                    type="number"
+                    id="invoicePrice"
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- RESUMEN -->
+
+        <div class="invoice-summary">
+
+            <div>
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong id="invoiceSubtotal">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    IVA
+                </span>
+
+                <strong id="invoiceTax">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <div class="invoice-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="invoiceTotal">
+                    $0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button
+                type="button"
+                class="secondary-button"
+                id="cancelInvoice"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Guardar factura
+            </button>
+
+        </div>
+
+    </form>
+
+</section>

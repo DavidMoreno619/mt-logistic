@@ -1,0 +1,320 @@
+<section class="collection-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Cobranza</h1>
+
+            <p>
+                Administración de pagos y cuentas por cobrar
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESUMEN -->
+
+    <div class="collection-cards">
+
+        <div class="collection-card">
+
+            <span>
+                Por cobrar
+            </span>
+
+            <strong>
+                $41,800.00
+            </strong>
+
+        </div>
+
+
+        <div class="collection-card">
+
+            <span>
+                Vencido
+            </span>
+
+            <strong>
+                $8,500.00
+            </strong>
+
+        </div>
+
+
+        <div class="collection-card">
+
+            <span>
+                Cobrado este mes
+            </span>
+
+            <strong>
+                $72,350.00
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- FILTROS -->
+
+    <div class="filters-panel">
+
+        <input
+            type="text"
+            id="collectionSearch"
+            placeholder="Buscar por cliente, factura u orden..."
+        >
+
+
+        <select id="collectionStatusFilter">
+
+            <option value="">
+                Todos los estados
+            </option>
+
+            <option value="Pendiente">
+                Pendiente
+            </option>
+
+            <option value="Parcial">
+                Pago parcial
+            </option>
+
+            <option value="Pagada">
+                Pagada
+            </option>
+
+            <option value="Vencida">
+                Vencida
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div class="table-panel">
+
+        <table class="trucks-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Factura</th>
+
+                    <th>Cliente</th>
+
+                    <th>Orden</th>
+
+                    <th>Total</th>
+
+                    <th>Pagado</th>
+
+                    <th>Pendiente</th>
+
+                    <th>Vencimiento</th>
+
+                    <th>Estado</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="collectionTableBody">
+
+
+                <tr
+                    data-status="Pendiente"
+                    data-search="FAC-002 Comercializadora GDL ORD-1026"
+                >
+
+                    <td>
+                        <strong>
+                            FAC-002
+                        </strong>
+                    </td>
+
+                    <td>
+                        Comercializadora GDL
+                    </td>
+
+                    <td>
+                        ORD-1026
+                    </td>
+
+                    <td>
+                        $12,760.00
+                    </td>
+
+                    <td>
+                        $0.00
+                    </td>
+
+                    <td>
+                        $12,760.00
+                    </td>
+
+                    <td>
+                        15/09/2026
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge">
+                            Pendiente
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action payment-action"
+                            data-action="payment"
+                            data-invoice="FAC-002"
+                        >
+                            Registrar pago
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    data-status="Parcial"
+                    data-search="FAC-004 Transportes del Norte ORD-1028"
+                >
+
+                    <td>
+                        <strong>
+                            FAC-004
+                        </strong>
+                    </td>
+
+                    <td>
+                        Transportes del Norte
+                    </td>
+
+                    <td>
+                        ORD-1028
+                    </td>
+
+                    <td>
+                        $20,000.00
+                    </td>
+
+                    <td>
+                        $8,000.00
+                    </td>
+
+                    <td>
+                        $12,000.00
+                    </td>
+
+                    <td>
+                        10/09/2026
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-route">
+                            Parcial
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action payment-action"
+                            data-action="payment"
+                            data-invoice="FAC-004"
+                        >
+                            Registrar pago
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    data-status="Pagada"
+                    data-search="FAC-001 Transportes del Norte ORD-1025"
+                >
+
+                    <td>
+                        <strong>
+                            FAC-001
+                        </strong>
+                    </td>
+
+                    <td>
+                        Transportes del Norte
+                    </td>
+
+                    <td>
+                        ORD-1025
+                    </td>
+
+                    <td>
+                        $18,560.00
+                    </td>
+
+                    <td>
+                        $18,560.00
+                    </td>
+
+                    <td>
+                        $0.00
+                    </td>
+
+                    <td>
+                        05/09/2026
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-available">
+                            Pagada
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action payment-action"
+                            data-action="view"
+                            data-invoice="FAC-001"
+                        >
+                            Ver pagos
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>

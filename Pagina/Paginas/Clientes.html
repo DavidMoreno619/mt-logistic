@@ -1,0 +1,273 @@
+<section class="clients-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Clientes</h1>
+
+            <p>
+                Administración de clientes de MT
+            </p>
+
+        </div>
+
+        <button
+            type="button"
+            class="primary-button"
+            id="newClientButton"
+        >
+            + Agregar cliente
+        </button>
+
+    </div>
+
+
+    <!-- FILTROS -->
+
+    <div class="filters-panel">
+
+        <input
+            type="text"
+            id="clientSearch"
+            placeholder="Buscar por nombre, empresa o RFC..."
+        >
+
+        <select id="clientStatusFilter">
+
+            <option value="">
+                Todos los estados
+            </option>
+
+            <option value="Activo">
+                Activo
+            </option>
+
+            <option value="Inactivo">
+                Inactivo
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div class="table-panel">
+
+        <table class="trucks-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Cliente</th>
+
+                    <th>Empresa</th>
+
+                    <th>Teléfono</th>
+
+                    <th>Correo</th>
+
+                    <th>RFC</th>
+
+                    <th>Estado</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="clientsTableBody">
+
+
+                <tr
+                    data-status="Activo"
+                    data-search="Transportes del Norte TDN 3312345678 contacto@tdn.com TDN010101AAA"
+                >
+
+                    <td>
+                        <strong>
+                            Transportes del Norte
+                        </strong>
+                    </td>
+
+                    <td>
+                        TDN S.A. de C.V.
+                    </td>
+
+                    <td>
+                        33 1234 5678
+                    </td>
+
+                    <td>
+                        contacto@tdn.com
+                    </td>
+
+                    <td>
+                        TDN010101AAA
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-available">
+                            Activo
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action client-action"
+                            data-action="view"
+                            data-client="Transportes del Norte"
+                        >
+                            Ver
+                        </button>
+
+                        <button
+                            type="button"
+                            class="table-action client-action"
+                            data-action="edit"
+                            data-client="Transportes del Norte"
+                        >
+                            Editar
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    data-status="Activo"
+                    data-search="Comercializadora GDL CGDL 3334567890 ventas@cgdl.com CGD020202BBB"
+                >
+
+                    <td>
+                        <strong>
+                            Comercializadora GDL
+                        </strong>
+                    </td>
+
+                    <td>
+                        Comercializadora GDL S.A.
+                    </td>
+
+                    <td>
+                        33 3456 7890
+                    </td>
+
+                    <td>
+                        ventas@cgdl.com
+                    </td>
+
+                    <td>
+                        CGD020202BBB
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-available">
+                            Activo
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action client-action"
+                            data-action="view"
+                            data-client="Comercializadora GDL"
+                        >
+                            Ver
+                        </button>
+
+                        <button
+                            type="button"
+                            class="table-action client-action"
+                            data-action="edit"
+                            data-client="Comercializadora GDL"
+                        >
+                            Editar
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    data-status="Inactivo"
+                    data-search="Distribuidora Occidente DOC 3345678901 administracion@doc.com DOC030303CCC"
+                >
+
+                    <td>
+                        <strong>
+                            Distribuidora Occidente
+                        </strong>
+                    </td>
+
+                    <td>
+                        Distribuidora Occidente S.A.
+                    </td>
+
+                    <td>
+                        33 4567 8901
+                    </td>
+
+                    <td>
+                        administracion@doc.com
+                    </td>
+
+                    <td>
+                        DOC030303CCC
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-maintenance">
+                            Inactivo
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action client-action"
+                            data-action="view"
+                            data-client="Distribuidora Occidente"
+                        >
+                            Ver
+                        </button>
+
+                        <button
+                            type="button"
+                            class="table-action client-action"
+                            data-action="edit"
+                            data-client="Distribuidora Occidente"
+                        >
+                            Editar
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>

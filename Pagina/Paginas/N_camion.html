@@ -1,0 +1,154 @@
+<section class="truck-form-page">
+
+    <div class="page-header">
+        <div>
+            <h1 id="truckFormTitle">Agregar camión</h1>
+
+            <p id="truckFormDescription">
+                Registra una nueva unidad en MT
+            </p>
+        </div>
+    </div>
+
+    <form id="newTruckForm" class="form-card">
+
+        <h2>Información del camión</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="truckUnit">Número de unidad</label>
+
+                <input
+                    type="text"
+                    id="truckUnit"
+                    placeholder="Ej. MT-010"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="truckPlates">Placas</label>
+
+                <input
+                    type="text"
+                    id="truckPlates"
+                    placeholder="Ej. ABC-123"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="truckBrand">Marca</label>
+
+                <input
+                    type="text"
+                    id="truckBrand"
+                    placeholder="Ej. Volvo"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="truckModel">Modelo</label>
+
+                <input
+                    type="text"
+                    id="truckModel"
+                    placeholder="Ej. FH"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="truckYear">Año</label>
+
+                <input
+                    type="number"
+                    id="truckYear"
+                    placeholder="Ej. 2025"
+                    min="1900"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="truckCapacity">Capacidad</label>
+
+                <input
+                    type="number"
+                    id="truckCapacity"
+                    placeholder="Ej. 20"
+                    min="0.01"
+                    step="0.01"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="truckCapacityUnit">
+                    Unidad de capacidad
+                </label>
+
+                <select id="truckCapacityUnit">
+                    <option value="toneladas">Toneladas</option>
+                    <option value="kg">Kilogramos</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="truckStatus">Estado</label>
+
+                <select id="truckStatus">
+                    <option value="Disponible">Disponible</option>
+                    <option value="En ruta">En ruta</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                </select>
+            </div>
+
+        </div>
+
+        <h2 class="form-section-title">
+            Información adicional
+        </h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="truckOperator">Operador</label>
+
+                <select id="truckOperator">
+                    <option value="">Sin asignar</option>
+                    <option value="Operador 1">Operador 1</option>
+                    <option value="Operador 2">Operador 2</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="truckWialonId">
+                    ID de unidad en Wialon
+                </label>
+
+                <input
+                    type="text"
+                    id="truckWialonId"
+                    placeholder="Se configurará posteriormente">
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                type="button"
+                class="secondary-button"
+                id="cancelTruck">
+                Cancelar
+            </button>
+
+            <button
+                type="submit"
+                class="primary-button"
+                id="saveTruckButton">
+                Guardar camión
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
