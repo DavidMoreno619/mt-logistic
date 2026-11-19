@@ -1,0 +1,257 @@
+<section class="dashboard">
+
+    <div class="dashboard-header">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Resumen general de MT</p>
+        </div>
+    </div>
+<!--Seccion de las tarjetas-->
+    <div class="dashboard-cards">
+
+        <div class="dashboard-card">
+            <!--Camiones-->
+            <div class="card-icon">C</div>
+
+            <div class="card-info">
+                <span class="card-title">Camiones Activos</span>
+                <strong>18</strong>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <!--Ordenes-->
+            <div class="card-icon">O</div>
+
+            <div class="card-info">
+                <span class="card-title">Ordenes Activas</span>
+                <strong>12</strong>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <!--Alertas-->
+            <div class="card-icon">A</div>
+
+            <div class="card-info">
+                <span class="card-title">Alertas</span>
+                <strong>3</strong>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <!--Facturacion-->
+            <div class="card-icon">F</div>
+
+            <div class="card-info">
+                <span class="card-title">Facturacion del dia</span>
+                <strong>$18,000</strong>
+            </div>
+        </div>
+
+    </div>
+    <!--Monitoreo-->
+    <div class="dashboard-grid">
+        <!--Mapa--> 
+        <div class="dashboard-panel map-panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Monitoreo en tiempo real</h2>
+                    <p>Ubicacion de las unidades</p>
+                </div>
+
+                <button class="panel-button">
+                    ver mapa
+                </button>
+            </div>
+
+            <div class="map-contain">
+                <div class="map-placeholder">
+                    <div class="map-message">
+                        <span class="map-icon">M</span>
+
+                        <h3>Mapa de monitoreo</h3>
+                        <p>
+                            <!--aqui se mostraran la ubicacion de los camiones-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Act reciente-->
+    <div class="dashboard-panel activity-panel">
+        <div class="panel-header">
+            <div>
+                <h2>Actividad reciente</h2>
+                <p>Ultimos movimientos</p>
+            </div>
+        </div>
+
+        <div class="activity-list">
+
+            <div class="activity-item">
+                <span class="activity-status green"></span>
+
+                <div>
+                    <strong>Camion MT-001</strong>
+
+                    <p>Inicio de viaje</p>
+
+                    <small>Hace 5 minutos</small>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <span class="activity-status yellow"></span>
+
+                <div>
+                    <strong>Camion MT-005</strong>
+
+                    <p>Se detuvo</p>
+
+                    <small>Hace 12 minutos</small>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <span class="activity-status green"></span>
+
+                <div>
+                    <strong>Orden #1025</strong>
+
+                    <p>Viaje iniciado</p>
+
+                    <small>Hace 20 minutos</small>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <span class="activity-status red"></span>
+
+                <div>
+                    <strong>Camion MT-008</strong>
+
+                    <p>Exceso de velocidad</p>
+
+                    <small>Hace 35 minutos</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- =========================
+     RESUMEN INFERIOR
+     ========================= -->
+
+<div class="dashboard-bottom">
+
+
+    <!-- ESTADO DE ÓRDENES -->
+    <div class="dashboard-panel">
+
+        <div class="panel-header">
+            <div>
+                <h2>Estado de órdenes</h2>
+                <p>Resumen de las órdenes actuales</p>
+            </div>
+        </div>
+
+        <div class="status-list">
+
+            <div class="status-row">
+                <span>Pendientes</span>
+                <strong>5</strong>
+            </div>
+
+            <div class="status-row">
+                <span>En curso</span>
+                <strong>4</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Finalizadas</span>
+                <strong>8</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Canceladas</span>
+                <strong>1</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ESTADO DE FLOTA -->
+    <div class="dashboard-panel">
+
+        <div class="panel-header">
+            <div>
+                <h2>Estado de la flota</h2>
+                <p>Situación actual de las unidades</p>
+            </div>
+        </div>
+
+        <div class="status-list">
+
+            <div class="status-row">
+                <span>En movimiento</span>
+                <strong>12</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Detenidos</span>
+                <strong>4</strong>
+            </div>
+
+            <div class="status-row">
+                <span>En mantenimiento</span>
+                <strong>1</strong>
+            </div>
+
+            <div class="status-row">
+                <span>Sin conexión</span>
+                <strong>1</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FACTURACIÓN -->
+    <div class="dashboard-panel">
+
+        <div class="panel-header">
+            <div>
+                <h2>Facturación</h2>
+                <p>Resumen financiero</p>
+            </div>
+        </div>
+
+        <div class="billing-summary">
+
+            <div>
+                <span>Hoy</span>
+                <strong>$45,800</strong>
+            </div>
+
+            <div>
+                <span>Este mes</span>
+                <strong>$850,200</strong>
+            </div>
+
+            <div>
+                <span>Pendiente</span>
+                <strong>$120,500</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</section>

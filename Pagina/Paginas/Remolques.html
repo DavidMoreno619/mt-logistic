@@ -1,0 +1,55 @@
+
+<section class="trucks-page">
+
+    <div class="page-header">
+        <div>
+            <h1>Remolques</h1>
+            <p>Administración de las unidades de remolque de MT</p>
+        </div>
+
+        <button
+            type="button"
+            class="primary-button"
+            id="newTrailerButton">
+            + Agregar Remolque
+        </button>
+    </div>
+
+    <div class="filters-panel">
+        <input
+            type="text"
+            id="trailerSearch"
+            placeholder="Buscar por número, placas o modelo...">
+
+        <select id="trailerStatusFilter">
+            <option value="">Todos los estados</option>
+            <option value="Disponible">Disponible</option>
+            <option value="En ruta">En ruta</option>
+            <option value="Mantenimiento">Mantenimiento</option>
+        </select>
+    </div>
+
+    <div class="table-panel">
+        <table class="trucks-table">
+            <thead>
+                <tr>
+                    <th>Número de remolque</th>
+                    <th>Placas</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Año</th>
+                    <th>Capacidad (ton)</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody id="trailersTableBody">
+                <tr>
+                    <td colspan="8">Cargando remolques...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>

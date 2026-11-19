@@ -1,0 +1,258 @@
+<section class="billing-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Facturación</h1>
+
+            <p>
+                Administración de facturas de MT
+            </p>
+
+        </div>
+
+        <button
+            type="button"
+            class="primary-button"
+            id="newInvoiceButton"
+        >
+            + Nueva factura
+        </button>
+
+    </div>
+
+
+    <!-- FILTROS -->
+
+    <div class="filters-panel">
+
+        <input
+            type="text"
+            id="invoiceSearch"
+            placeholder="Buscar por folio, cliente u orden..."
+        >
+
+        <select id="invoiceStatusFilter">
+
+            <option value="">
+                Todos los estados
+            </option>
+
+            <option value="Pendiente">
+                Pendiente
+            </option>
+
+            <option value="Validada">
+                Validada
+            </option>
+
+            <option value="Timbrada">
+                Timbrada
+            </option>
+
+            <option value="Error">
+                Error
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div class="table-panel">
+
+        <table class="trucks-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Folio</th>
+                    <th>Cliente</th>
+                    <th>Orden</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="invoicesTableBody">
+
+                <tr
+                    data-status="Timbrada"
+                    data-search="FAC-001 Transportes del Norte ORD-1025"
+                >
+
+                    <td>
+                        <strong>FAC-001</strong>
+                    </td>
+
+                    <td>
+                        Transportes del Norte
+                    </td>
+
+                    <td>
+                        ORD-1025
+                    </td>
+
+                    <td>
+                        28/08/2026
+                    </td>
+
+                    <td>
+                        $18,560.00
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-available">
+                            Timbrada
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action invoice-action"
+                            data-action="view"
+                            data-invoice="FAC-001"
+                        >
+                            Ver
+                        </button>
+
+                        <button
+                            type="button"
+                            class="table-action invoice-action"
+                            data-action="download"
+                            data-invoice="FAC-001"
+                        >
+                            PDF
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    data-status="Pendiente"
+                    data-search="FAC-002 Comercializadora GDL ORD-1026"
+                >
+
+                    <td>
+                        <strong>FAC-002</strong>
+                    </td>
+
+                    <td>
+                        Comercializadora GDL
+                    </td>
+
+                    <td>
+                        ORD-1026
+                    </td>
+
+                    <td>
+                        28/08/2026
+                    </td>
+
+                    <td>
+                        $12,760.00
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge">
+                            Pendiente
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action invoice-action"
+                            data-action="view"
+                            data-invoice="FAC-002"
+                        >
+                            Ver
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    data-status="Error"
+                    data-search="FAC-003 Distribuidora Occidente ORD-1027"
+                >
+
+                    <td>
+                        <strong>FAC-003</strong>
+                    </td>
+
+                    <td>
+                        Distribuidora Occidente
+                    </td>
+
+                    <td>
+                        ORD-1027
+                    </td>
+
+                    <td>
+                        28/08/2026
+                    </td>
+
+                    <td>
+                        $9,280.00
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-maintenance">
+                            Error
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="table-action invoice-action"
+                            data-action="view"
+                            data-invoice="FAC-003"
+                        >
+                            Ver
+                        </button>
+
+                        <button
+                            type="button"
+                            class="table-action invoice-action"
+                            data-action="correct"
+                            data-invoice="FAC-003"
+                        >
+                            Corregir
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>

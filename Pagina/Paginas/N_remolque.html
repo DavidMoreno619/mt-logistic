@@ -1,0 +1,113 @@
+
+<section class="trucks-page">
+
+    <div class="page-header">
+        <div>
+            <h1 id="trailerFormTitle">Agregar remolque</h1>
+            <p>Registre una nueva unidad de remolque en MT</p>
+        </div>
+    </div>
+
+    <div class="table-panel" style="padding: 30px;">
+
+        <h2>Información del remolque</h2>
+
+        <form id="newTrailerForm">
+
+            <div class="filters-panel" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+
+                <div>
+                    <label for="trailerNumber">Número de Remolque</label>
+                    <input
+                        type="text"
+                        id="trailerNumber"
+                        placeholder="Ej. REM-001"
+                        maxlength="20"
+                        required>
+                </div>
+
+                <div>
+                    <label for="trailerPlates">Placas</label>
+                    <input
+                        type="text"
+                        id="trailerPlates"
+                        placeholder="Ej. ABC-123-A"
+                        maxlength="20"
+                        required>
+                </div>
+
+                <div>
+                    <label for="trailerBrand">Marca</label>
+                    <input
+                        type="text"
+                        id="trailerBrand"
+                        placeholder="Ej. Utility"
+                        maxlength="50"
+                        required>
+                </div>
+
+                <div>
+                    <label for="trailerModel">Modelo</label>
+                    <input
+                        type="text"
+                        id="trailerModel"
+                        placeholder="Ej. Caja seca"
+                        maxlength="50"
+                    >
+                </div>
+
+                <div>
+                    <label for="trailerYear">Año</label>
+                    <input
+                        type="number"
+                        id="trailerYear"
+                        placeholder="Ej. 2025"
+                        min="1950"
+                        max="2100">
+                </div>
+
+                <div>
+                    <label for="trailerCapacity">Capacidad (toneladas)</label>
+                    <input
+                        type="number"
+                        id="trailerCapacity"
+                        placeholder="Ej. 30"
+                        min="0.01"
+                        step="0.01"
+                        required>
+                </div>
+
+                <div>
+                    <label for="trailerStatus">Estado</label>
+                    <select id="trailerStatus" required>
+                        <option value="Disponible">Disponible</option>
+                        <option value="En ruta">En ruta</option>
+                        <option value="Mantenimiento">Mantenimiento</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:25px;">
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="cancelTrailer">
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="saveTrailerButton">
+                    Guardar remolque
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
