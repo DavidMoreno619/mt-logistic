@@ -1,7 +1,6 @@
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from conexion import obtener_conexion
+from Pagina.Backend.conexion import obtener_conexion
 
 # =====================================================
 # CONFIGURACIÓN DEL SERVIDOR
