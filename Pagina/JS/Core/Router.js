@@ -46,6 +46,15 @@ import {
     inicializarRegistrarPago
 } from "../Paginas2/Cobranza.js";
 
+import {
+    tienePermiso,
+    obtenerSesion
+} from "./Auth.js";
+
+import {
+    inicializarUsuarios
+} from "../Paginas2/Usuarios.js";
+
 
 /* =========================================================
    RUTAS
@@ -99,7 +108,10 @@ const RUTAS = {
         "../Paginas/Cobranza.html",
 
     RegistrarPago:
-        "../Paginas/Pago.html"
+        "../Paginas/Pago.html",
+
+    Usuarios:
+        "../Paginas/Usuarios.html"
 };
 
 
@@ -156,7 +168,10 @@ const INICIALIZADORES = {
         inicializarCobranza,
 
     RegistrarPago:
-        inicializarRegistrarPago
+        inicializarRegistrarPago,
+
+    Usuarios:
+        inicializarUsuarios
 };
 
 
@@ -189,7 +204,7 @@ const PAGINA_PADRE = {
     NuevaOrden: "Ordenes",
 
     NuevoCamion: "Camiones",
-    
+
     NuevoRemolque: "Remolques",
 
     NuevoOperador: "Operadores",
@@ -236,6 +251,17 @@ export function navegar(pagina) {
         return;
     }
 
+    const sesion = obtenerSesion();
+
+    if (!sesion) return;
+
+    if (pagina === "Usuarios" && sesion.role !== "admin") {
+        return;
+    }
+
+    if (!tienePermiso(pagina)) {
+        return;
+    }
 
     /* -----------------------------------------------------
        Actualizar menú

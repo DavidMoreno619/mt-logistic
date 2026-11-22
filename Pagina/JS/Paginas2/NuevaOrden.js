@@ -1,782 +1,346 @@
 import { navegar } from "../Core/Router.js";
-import { escaparHTML, normalizarEstado, formatearFecha } from "../Core/Utils.js";
-let catalogoCargas = [];
+
+let catalogos = {
+    camiones: [],
+    operadores: [],
+    remolques: []
+};
 
 export async function inicializarNuevaOrden() {
+    const form = document.getElementById("newOrderForm");
+    const tbody = document.getElementById("loadTableBody");
+    const addButton = document.getElementById("addLoadButton");
 
-    const addLoadButton = document.getElementById("addLoadButton");
-    const loadTableBody = document.getElementById("loadTableBody");
+    if (!form || !tbody || !addButton) return;
 
-    if (!addLoadButton || !loadTableBody) {
-        return;
-    }
-
-    // Cargar catálogos desde MySQL antes de crear la primera carga
     await cargarCatalogos();
 
-    // Agregar la primera fila de carga
     agregarCarga();
+    addButton.addEventListener("click", agregarCarga);
 
-    // Botón para agregar más cargas
-    addLoadButton.addEventListener("click", function () {
-        agregarCarga();
+    document.getElementById("fechaSalida").addEventListener("change", actualizarDisponibilidad);
+    document.getElementById("fechaLlegada").addEventListener("change", actualizarDisponibilidad);
+
+    ["camion", "operador", "remolque"].forEach(id => {
+        document.getElementById(id).addEventListener("change", actualizarDisponibilidad);
     });
 
-    // Botón para regresar a órdenes
-    const backButton = document.getElementById("backToOrders");
+    document.getElementById("costoFlete").addEventListener("input", actualizarTotales);
 
-    if (backButton) {
-        backButton.addEventListener("click", function () {
-            navegar("Ordenes");
-        });
-    }
+    document.getElementById("backToOrders")?.addEventListener("click", () => navegar("Ordenes"));
 
-    // Botón para cancelar
-    const cancelButton = document.querySelector(".cancel-button");
+    document.querySelector(".cancel-button")?.addEventListener("click", () => {
+        if (confirm("¿Deseas cancelar la creación de esta orden?")) navegar("Ordenes");
+    });
 
-    if (cancelButton) {
-        cancelButton.addEventListener("click", function () {
-            const confirmar = confirm(
-                "¿Deseas cancelar la creación de esta orden?"
-            );
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        guardarOrden();
+    });
 
-            if (confirmar) {
-                navegar("Ordenes");
-            }
-        });
-    }
-
-    // Envío del formulario
-    const form = document.getElementById("newOrderForm");
-
-    if (form) {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-            guardarOrden();
-        });
-    }
+    actualizarDisponibilidad();
+    actualizarTotales();
 }
 
-
-// =====================================================
-// CARGAR CATÁLOGOS DESDE MYSQL
-// =====================================================
-
+// Carga los catálogos que vienen desde el servidor Flask/MySQL.
 async function cargarCatalogos() {
-
     try {
-
-        const respuesta = await fetch(
-            "http://127.0.0.1:5000/api/catalogos"
-        );
-
-        if (!respuesta.ok) {
-            throw new Error("No se pudieron cargar los catálogos");
-        }
+        const respuesta = await fetch("http://127.0.0.1:5000/api/catalogos");
+        if (!respuesta.ok) throw new Error("No se pudieron cargar los catálogos.");
 
         const datos = await respuesta.json();
 
-        // CLIENTES
-        llenarSelect(
-            "cliente",
-            datos.clientes,
-            "ID_CLIENTE",
-            "NOMBRE"
-        );
+        llenarSelect("cliente", datos.clientes || [], "ID_CLIENTE", "NOMBRE");
 
-        // CAMIONES
-        llenarSelect(
-            "camion",
-            datos.camiones,
-            "ID_CAMION",
-            "NUMERO_CAMION"
-        );
+        catalogos.camiones = datos.camiones || [];
+        catalogos.operadores = datos.operadores || [];
+        catalogos.remolques = datos.remolques || [];
 
-        // OPERADORES
-        llenarSelect(
-            "operador",
-            datos.operadores,
-            "ID_OPERADOR",
-            "NOMBRE"
-        );
-
-        // SERVICIOS
-        llenarSelect(
-            "servicio",
-            datos.servicios,
-            "ID_TIPO_SERVICIO",
-            "NOMBRE_SERVICIO"
-        );
-
-        // TIPOS DE CARGA
-        catalogoCargas = datos.cargas || [];
-
-        console.log("Catálogos cargados:", datos);
+        llenarSelect("camion", catalogos.camiones, "ID_CAMION", "NUMERO_CAMION");
+        llenarSelect("operador", catalogos.operadores, "ID_OPERADOR", "NOMBRE");
+        llenarSelect("remolque", catalogos.remolques, "ID_REMOLQUE", "NUMERO_REMOLQUE");
 
     } catch (error) {
-
         console.error("Error al cargar catálogos:", error);
-
-        alert("No fue posible cargar los datos desde MySQL.");
-
+        alert("No fue posible cargar los datos desde MySQL. Verifica que Flask esté ejecutándose.");
     }
 }
 
-
-// =====================================================
-// LLENAR LOS SELECT CON LOS DATOS RECIBIDOS
-// =====================================================
-
 function llenarSelect(id, datos, campoId, campoNombre) {
-
     const select = document.getElementById(id);
-
-    if (!select) {
-        console.warn(`No se encontró el select: ${id}`);
-        return;
-    }
+    if (!select) return;
 
     select.innerHTML = '<option value="">Selecciona una opción</option>';
 
-    datos.forEach(function (elemento) {
-
+    datos.forEach(item => {
         const option = document.createElement("option");
-
-        option.value = elemento[campoId];
-        option.textContent = elemento[campoNombre];
-
+        option.value = item[campoId];
+        option.textContent = item[campoNombre];
         select.appendChild(option);
-
     });
-
 }
 
-
-
-// =====================================================
-// GUARDAR ORDEN
-// =====================================================
-
-function guardarOrden() {
-
-    const cliente =
-        document.getElementById("cliente").value;
-
-
-    const contacto =
-        document.getElementById("contacto").value.trim();
-
-
-    const origen =
-        document.getElementById("origen").value.trim();
-
-
-    const destino =
-        document.getElementById("destino").value.trim();
-
-
-    const fechaSalida =
-        document.getElementById("fechaSalida").value;
-
-
-    const horaSalida =
-        document.getElementById("horaSalida").value;
-
-
-    const fechaLlegada =
-        document.getElementById("fechaLlegada").value;
-
-
-    const horaLlegada =
-        document.getElementById("horaLlegada").value;
-
-
-    const citaLlegada =
-        document.getElementById("citaLlegada").checked;
-
-    const camion =
-        document.getElementById("camion").value;
-
-
-    const operador =
-        document.getElementById("operador").value;
-
-
-    const observaciones =
-        document.getElementById("observaciones").value.trim();
-
-
-    // -------------------------
-    // VALIDACIONES
-    // -------------------------
-
-    if (!cliente) {
-
-        alert("Selecciona un cliente.");
-
-        return;
-
+// Convierte el estado de un recurso en un valor comparable.
+function estadoDisponible(recurso, tipo) {
+    const estado = String(recurso || "").trim().toLowerCase();
+    if (tipo === "operador") {
+        return ["activo", "disponible", "libre"].includes(estado);
     }
+    return ["disponible", "activo", "libre"].includes(estado);
+}
 
+// Dos periodos se cruzan cuando inicioA <= finB y finA >= inicioB.
+function existeCruce(inicioA, finA, inicioB, finB) {
+    return inicioA <= finB && finA >= inicioB;
+}
 
-    if (!origen) {
-
-        alert("Ingresa el origen.");
-
-        return;
-
+function obtenerOrdenesGuardadas() {
+    try {
+        return JSON.parse(localStorage.getItem("mtOrdenes") || "[]");
+    } catch {
+        return [];
     }
+}
 
+function recursoOcupado(recurso, tipo, fechaInicio, fechaFin) {
+    if (!fechaInicio || !fechaFin) return false;
 
-    if (!destino) {
+    const idCampo = {
+        camion: "camionId",
+        operador: "operadorId",
+        remolque: "remolqueId"
+    }[tipo];
 
-        alert("Ingresa el destino.");
+    const nombreCampo = tipo;
+    const idRecurso = String(recurso.id);
+    const nombreRecurso = String(recurso.nombre);
 
-        return;
+    return obtenerOrdenesGuardadas().some(orden => {
+        const estado = String(orden.estado || "").trim().toLowerCase();
+        if (["cancelada", "cancelado", "finalizada", "finalizado"].includes(estado)) return false;
 
-    }
+        const mismoRecurso = orden[idCampo] != null
+            ? String(orden[idCampo]) === idRecurso
+            : String(orden[nombreCampo] || "") === nombreRecurso;
 
+        if (!mismoRecurso) return false;
 
-    if (!fechaSalida || !horaSalida) {
+        const inicioOrden = orden.fechaSalida;
+        const finOrden = orden.fechaLlegada || orden.fechaSalida;
+        if (!inicioOrden || !finOrden) return false;
 
-        alert(
-            "Ingresa la fecha y hora de salida."
-        );
+        return existeCruce(fechaInicio, fechaFin, inicioOrden, finOrden);
+    });
+}
 
-        return;
+// Reconstruye los selectores para deshabilitar recursos fuera de servicio u ocupados.
+function actualizarDisponibilidad() {
+    const fechaInicio = document.getElementById("fechaSalida")?.value;
+    const fechaFin = document.getElementById("fechaLlegada")?.value;
 
-    }
-
-
-    if (!fechaLlegada || !horaLlegada) {
-
-        alert(
-            "Ingresa la fecha y hora de llegada estimada."
-        );
-
-        return;
-
-    }
-
-
-    if (!camion) {
-
-        alert("Selecciona un camión.");
-
-        return;
-
-    }
-
-
-    if (!operador) {
-
-        alert("Selecciona un operador.");
-
-        return;
-
-    }
-
-
-    const salida =
-        new Date(
-            `${fechaSalida}T${horaSalida}`
-        );
-
-
-    const llegada =
-        new Date(
-            `${fechaLlegada}T${horaLlegada}`
-        );
-
-
-    if (llegada <= salida) {
-
-        alert(
-            "La llegada estimada debe ser posterior a la salida."
-        );
-
-        return;
-
-    }
-
-
-    // -------------------------
-    // VALIDAR CARGAS
-    // -------------------------
-
-    const rows =
-        document.querySelectorAll(
-            "#loadTableBody tr"
-        );
-
-
-    if (rows.length === 0) {
-
-        alert(
-            "Debes agregar al menos una carga."
-        );
-
-        return;
-
-    }
-
-
-    let cargaValida = true;
-
-    const cargas = [];
-
-
-    rows.forEach(function (row) {
-
-        const nombre =
-            row.querySelector(
-                ".load-name"
-            ).value.trim();
-
-
-        const cantidad =
-            Number(
-                row.querySelector(
-                    ".load-quantity"
-                ).value
-            );
-
-
-        const unidad =
-            row.querySelector(
-                ".load-unit"
-            ).value;
-
-
-        const peso =
-            Number(
-                row.querySelector(
-                    ".load-weight"
-                ).value
-            );
-
-
-        const precio =
-            Number(
-                row.querySelector(
-                    ".load-price"
-                ).value
-            );
-
-
-        if (
-            !nombre ||
-            cantidad <= 0 ||
-            peso <= 0 ||
-            precio < 0
-        ) {
-
-            cargaValida = false;
-
+    const configuraciones = [
+        {
+            tipo: "camion",
+            datos: catalogos.camiones,
+            idCampo: "ID_CAMION",
+            nombreCampo: "NUMERO_CAMION",
+            estadoCampo: "ESTADO"
+        },
+        {
+            tipo: "operador",
+            datos: catalogos.operadores,
+            idCampo: "ID_OPERADOR",
+            nombreCampo: "NOMBRE",
+            estadoCampo: "ESTATUS_OPERADOR"
+        },
+        {
+            tipo: "remolque",
+            datos: catalogos.remolques,
+            idCampo: "ID_REMOLQUE",
+            nombreCampo: "NUMERO_REMOLQUE",
+            estadoCampo: "ESTADO"
         }
+    ];
 
+    configuraciones.forEach(config => {
+        const select = document.getElementById(config.tipo);
+        if (!select) return;
 
-        cargas.push({
+        const seleccionadoAntes = select.value;
+        select.innerHTML = '<option value="">Selecciona una opción</option>';
 
-            nombre: nombre,
+        config.datos.forEach(item => {
+            const id = String(item[config.idCampo]);
+            const nombre = String(item[config.nombreCampo]);
+            const disponiblePorEstado = estadoDisponible(item[config.estadoCampo], config.tipo);
+            const ocupado = recursoOcupado(
+                { id, nombre },
+                config.tipo,
+                fechaInicio,
+                fechaFin
+            );
 
-            cantidad: cantidad,
+            const option = document.createElement("option");
+            option.value = id;
+            option.textContent = nombre;
 
-            unidad: unidad,
+            if (!disponiblePorEstado) {
+                option.disabled = true;
+                option.textContent += " - Fuera de servicio";
+            } else if (ocupado) {
+                option.disabled = true;
+                option.textContent += " - Ocupado en esas fechas";
+            }
 
-            peso: peso,
-
-            precio: precio,
-
-            subtotal:
-                cantidad * precio
-
+            select.appendChild(option);
         });
 
-    });
-
-
-    if (!cargaValida) {
-
-        alert(
-            "Revisa los datos de las cargas."
+        const opcionAnterior = Array.from(select.options).find(
+            option => option.value === seleccionadoAntes && !option.disabled
         );
-
-        return;
-
-    }
-
-
-    // -------------------------
-    // OBTENER ÓRDENES
-    // -------------------------
-
-    const ordenes =
-        JSON.parse(
-            localStorage.getItem("mtOrdenes")
-        ) || [];
-
-
-    // -------------------------
-    // GENERAR NÚMERO
-    // -------------------------
-
-    const numero =
-        1025 + ordenes.length + 1;
-
-
-    // -------------------------
-    // CREAR ORDEN
-    // -------------------------
-
-    const nuevaOrden = {
-
-        numero:
-            "#" + numero,
-
-        cliente:
-            document.getElementById(
-                "cliente"
-            ).selectedOptions[0].text,
-
-        contacto:
-            contacto,
-
-        origen:
-            origen,
-
-        destino:
-            destino,
-
-        fechaSalida:
-            fechaSalida,
-
-        horaSalida:
-            horaSalida,
-
-        fechaLlegada:
-            fechaLlegada,
-
-        horaLlegada:
-            horaLlegada,
-
-        citaLlegada:
-            citaLlegada,
-
-        camion:
-            camion,
-
-        operador:
-            document.getElementById(
-                "operador"
-            ).selectedOptions[0].text,
-
-        cargas:
-            cargas,
-
-        observaciones:
-            observaciones,
-
-        estado:
-            "Pendiente"
-
-    };
-
-
-    ordenes.push(
-        nuevaOrden
-    );
-
-
-    localStorage.setItem(
-        "mtOrdenes",
-        JSON.stringify(ordenes)
-    );
-
-
-    alert(
-        "Orden creada correctamente."
-    );
-
-
-    navegar("Ordenes");
-
+        select.value = opcionAnterior ? seleccionadoAntes : "";
+    });
 }
 
-
-// =====================================================
-// AGREGAR CARGA
-// =====================================================
-
-
 function agregarCarga() {
+    const tbody = document.getElementById("loadTableBody");
+    if (!tbody) return;
 
-    const loadTableBody = document.getElementById("loadTableBody");
-
-    if (!loadTableBody) {
-        return;
-    }
-
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
         <td>
-            <select class="load-name">
-                <option value="">Selecciona una carga</option>
-            </select>
+            <input type="text" class="load-name" placeholder="Escribe el tipo de carga" required>
         </td>
-
         <td>
-            <input
-                type="number"
-                class="load-quantity"
-                min="1"
-                value="1"
-            >
+            <input type="number" class="load-quantity" min="1" step="1" value="1" required>
         </td>
-
         <td>
-            <select class="load-unit">
-                <option value="pieza">Pieza</option>
-                <option value="kg">Kg</option>
-                <option value="ton">Tonelada</option>
-                <option value="litro">Litro</option>
-                <option value="otro">Otro</option>
-            </select>
+            <input type="text" class="load-weight" placeholder="Ej. 1,200 kg" required>
         </td>
-
         <td>
-            <input
-                type="number"
-                class="load-weight"
-                min="0"
-                value="0"
-            >
-        </td>
-
-        <td>
-            <input
-                type="number"
-                class="load-price"
-                min="0"
-                step="0.01"
-                value="0"
-            >
-        </td>
-
-        <td>
-            <span class="load-subtotal">$0.00</span>
-        </td>
-
-        <td>
-            <button
-                type="button"
-                class="remove-load"
-            >
-                ×
-            </button>
+            <button type="button" class="remove-load" title="Eliminar carga">×</button>
         </td>
     `;
 
-    // Llenar el selector con los tipos de carga de MySQL
-    const selectCarga = row.querySelector(".load-name");
-
-    catalogoCargas.forEach(function (carga) {
-
-        const option = document.createElement("option");
-
-        option.value = carga.ID_TIPO_CARGA;
-        option.textContent = carga.NOMBRE_CARGA;
-
-        selectCarga.appendChild(option);
-
-    });
-
-    loadTableBody.appendChild(row);
-
-    configurarCarga(row);
+    fila.querySelector(".remove-load").addEventListener("click", () => fila.remove());
+    tbody.appendChild(fila);
 }
-
-
-
-// =====================================================
-// CONFIGURAR CARGA
-// =====================================================
-
-function configurarCarga(row) {
-
-    const quantity =
-        row.querySelector(
-            ".load-quantity"
-        );
-
-
-    const weight =
-        row.querySelector(
-            ".load-weight"
-        );
-
-
-    const price =
-        row.querySelector(
-            ".load-price"
-        );
-
-
-    const subtotal =
-        row.querySelector(
-            ".load-subtotal"
-        );
-
-
-    const removeButton =
-        row.querySelector(
-            ".remove-load"
-        );
-
-
-    function actualizarSubtotal() {
-
-        const cantidad =
-            Number(
-                quantity.value
-            ) || 0;
-
-
-        const precio =
-            Number(
-                price.value
-            ) || 0;
-
-
-        const resultado =
-            cantidad * precio;
-
-
-        subtotal.textContent =
-            `$${resultado.toFixed(2)}`;
-
-
-        actualizarTotales();
-
-    }
-
-
-    quantity.addEventListener(
-        "input",
-        actualizarSubtotal
-    );
-
-
-    price.addEventListener(
-        "input",
-        actualizarSubtotal
-    );
-
-
-    weight.addEventListener(
-        "input",
-        actualizarTotales
-    );
-
-
-    removeButton.addEventListener(
-        "click",
-        function () {
-
-            row.remove();
-
-            actualizarTotales();
-
-        }
-    );
-
-
-    actualizarSubtotal();
-
-}
-
-
-// =====================================================
-// ACTUALIZAR TOTALES
-// =====================================================
 
 function actualizarTotales() {
-
-    const rows =
-        document.querySelectorAll(
-            "#loadTableBody tr"
-        );
-
-
-    let totalWeight = 0;
-
-    let totalPrice = 0;
-
-
-    rows.forEach(function (row) {
-
-        const weight =
-            Number(
-                row.querySelector(
-                    ".load-weight"
-                ).value
-            ) || 0;
-
-
-        const quantity =
-            Number(
-                row.querySelector(
-                    ".load-quantity"
-                ).value
-            ) || 0;
-
-
-        const price =
-            Number(
-                row.querySelector(
-                    ".load-price"
-                ).value
-            ) || 0;
-
-
-        totalWeight += weight;
-
-
-        totalPrice +=
-            quantity * price;
-
-    });
-
-
-    const totalWeightElement =
-        document.getElementById(
-            "totalWeight"
-        );
-
-
-    const orderTotalElement =
-        document.getElementById(
-            "orderTotal"
-        );
-
-
-    if (totalWeightElement) {
-
-        totalWeightElement.textContent =
-            `${totalWeight} kg`;
-
+    const costo = Number(document.getElementById("costoFlete")?.value || 0);
+    const total = document.getElementById("orderTotal");
+    if (total) {
+        total.textContent = costo.toLocaleString("es-MX", {
+            style: "currency",
+            currency: "MXN",
+            minimumFractionDigits: 2
+        });
     }
-
-
-    if (orderTotalElement) {
-
-        orderTotalElement.textContent =
-            `$${totalPrice.toFixed(2)}`;
-
-    }
-
 }
 
+function guardarOrden() {
+    const form = document.getElementById("newOrderForm");
+    if (!form.reportValidity()) return;
 
-// =====================================================
+    const remitente = document.getElementById("cliente");
+    const destinatario = document.getElementById("destinatario").value.trim();
+    const contacto = document.getElementById("contacto").value.trim();
+    const origen = document.getElementById("origen").value.trim();
+    const destino = document.getElementById("destino").value.trim();
+
+    const fechaSalida = document.getElementById("fechaSalida").value;
+    const horaSalida = document.getElementById("horaSalida").value;
+    const fechaLlegada = document.getElementById("fechaLlegada").value;
+    const horaLlegada = document.getElementById("horaLlegada").value;
+    const citaLlegada = document.getElementById("citaLlegada").checked;
+
+    const camion = document.getElementById("camion");
+    const operador = document.getElementById("operador");
+    const remolque = document.getElementById("remolque");
+    const costoFlete = Number(document.getElementById("costoFlete").value);
+    const observaciones = document.getElementById("observaciones").value.trim();
+
+    const salida = new Date(`${fechaSalida}T${horaSalida}`);
+    const llegada = new Date(`${fechaLlegada}T${horaLlegada}`);
+    if (Number.isNaN(salida.getTime()) || Number.isNaN(llegada.getTime()) || llegada <= salida) {
+        alert("La fecha y hora de llegada deben ser posteriores a la salida.");
+        return;
+    }
+
+    if (!Number.isFinite(costoFlete) || costoFlete < 0) {
+        alert("Ingresa un costo de flete válido.");
+        return;
+    }
+
+    // Actualiza la disponibilidad justo antes de guardar.
+    actualizarDisponibilidad();
+    if (!camion.value || !operador.value || !remolque.value) {
+        alert("Selecciona un camión, operador y remolque que estén disponibles.");
+        return;
+    }
+    if (
+        camion.selectedOptions[0]?.disabled ||
+        operador.selectedOptions[0]?.disabled ||
+        remolque.selectedOptions[0]?.disabled
+    ) {
+        alert("Uno de los recursos seleccionados ya no está disponible. Selecciona otro.");
+        return;
+    }
+
+    const filas = Array.from(document.querySelectorAll("#loadTableBody tr"));
+    if (filas.length === 0) {
+        alert("Agrega al menos un tipo de carga.");
+        return;
+    }
+
+    const cargas = [];
+    for (const fila of filas) {
+        const nombre = fila.querySelector(".load-name").value.trim();
+        const cantidad = Number(fila.querySelector(".load-quantity").value);
+        const pesoUnitario = fila.querySelector(".load-weight").value.trim();
+
+        if (!nombre || !Number.isInteger(cantidad) || cantidad <= 0 || !pesoUnitario) {
+            alert("Revisa el tipo de carga, la cantidad y el peso unitario de cada renglón.");
+            return;
+        }
+
+        cargas.push({ nombre, cantidad, pesoUnitario });
+    }
+
+    const ordenes = obtenerOrdenesGuardadas();
+    const ultimoNumero = ordenes.reduce((mayor, orden) => {
+        const numero = Number(String(orden.numero || "").replace("#", "")) || 0;
+        return Math.max(mayor, numero);
+    }, 1025);
+
+    const nuevaOrden = {
+        numero: `#${ultimoNumero + 1}`,
+        cliente: remitente.selectedOptions[0].textContent,
+        clienteId: remitente.value,
+        destinatario,
+        contacto,
+        origen,
+        destino,
+        fechaSalida,
+        horaSalida,
+        fechaLlegada,
+        horaLlegada,
+        citaLlegada,
+        camion: camion.selectedOptions[0].textContent,
+        camionId: camion.value,
+        operador: operador.selectedOptions[0].textContent,
+        operadorId: operador.value,
+        remolque: remolque.selectedOptions[0].textContent,
+        remolqueId: remolque.value,
+        cargas,
+        costoFlete,
+        observaciones,
+        estado: "Pendiente"
+    };
+
+    ordenes.push(nuevaOrden);
+    localStorage.setItem("mtOrdenes", JSON.stringify(ordenes));
+
+    alert("Orden creada correctamente.");
+    navegar("Ordenes");
+}

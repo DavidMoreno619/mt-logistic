@@ -1,398 +1,163 @@
 <section class="new-order-page">
 
-    <!-- ENCABEZADO -->
     <div class="new-order-header">
-
         <div>
             <h1>Nueva orden</h1>
             <p>Registra una nueva orden de transporte</p>
         </div>
-
-        <button type="button" class="back-button" id="backToOrders">
-            ← Volver
-        </button>
-
+        <button type="button" class="back-button" id="backToOrders">← Volver</button>
     </div>
 
     <form id="newOrderForm">
-        <!-- =========================
-             CLIENTE
-             ========================= -->
 
+        <!-- REMITENTE Y DESTINATARIO -->
         <div class="form-panel">
-
-            <div class="form-panel-header">
-                <h2>Cliente</h2>
-            </div>
-
+            <div class="form-panel-header"><h2>Cliente</h2></div>
             <div class="form-grid">
-
                 <div class="form-group">
-
-                    <label for="cliente">
-                        Cliente
-                    </label>
-
+                    <label for="cliente">Remitente</label>
                     <select id="cliente" name="cliente" required>
-                        <option value="">Cargando clientes...</option>
+                        <option value="">Cargando remitentes...</option>
                     </select>
-
-                    <option value="empresa-a">
-                        Empresa A
-                    </option>
-
-                    <option value="empresa-b">
-                        Empresa B
-                    </option>
-
-                    <option value="empresa-c">
-                        Empresa C
-                    </option>
-                    </select>
-
                 </div>
-
-
                 <div class="form-group">
-
-                    <label for="contacto">
-                        Contacto
-                    </label>
-
+                    <label for="destinatario">Destinatario</label>
+                    <input type="text" id="destinatario" name="destinatario" placeholder="Nombre del destinatario" required>
+                </div>
+                <div class="form-group">
+                    <label for="contacto">Contacto</label>
                     <input type="text" id="contacto" name="contacto" placeholder="Nombre del contacto">
-
                 </div>
-
             </div>
-
         </div>
 
-
-        <!-- =========================
-             RUTA
-             ========================= -->
-
+        <!-- RUTA -->
         <div class="form-panel">
-
-            <div class="form-panel-header">
-                <h2>Ruta</h2>
-            </div>
-
+            <div class="form-panel-header"><h2>Ruta</h2></div>
             <div class="form-grid">
-
                 <div class="form-group">
-
-                    <label for="origen">
-                        Origen
-                    </label>
-
-                    <input type="text" id="origen" name="origen" placeholder="Lugar de salida">
-
+                    <label for="origen">Origen - domicilio</label>
+                    <input type="text" id="origen" name="origen" placeholder="Domicilio de salida" required>
                 </div>
-
-
                 <div class="form-group">
-
-                    <label for="destino">
-                        Destino
-                    </label>
-
-                    <input type="text" id="destino" name="destino" placeholder="Lugar de llegada">
-
+                    <label for="destino">Destino - domicilio</label>
+                    <input type="text" id="destino" name="destino" placeholder="Domicilio de llegada" required>
                 </div>
-
             </div>
-
         </div>
 
-
-        <!-- =========================
-             HORARIOS
-             ========================= -->
-
+        <!-- HORARIOS -->
         <div class="form-panel">
-
-            <div class="form-panel-header">
-                <h2>Horarios</h2>
-            </div>
-
-
+            <div class="form-panel-header"><h2>Horarios</h2></div>
             <div class="form-grid">
-
                 <div class="form-subsection">
-
                     <h3>Salida</h3>
-
                     <div class="form-grid">
-
                         <div class="form-group">
-
-                            <label for="fechaSalida">
-                                Fecha
-                            </label>
-
-                            <input type="date" id="fechaSalida" name="fechaSalida">
-
+                            <label for="fechaSalida">Fecha</label>
+                            <input type="date" id="fechaSalida" name="fechaSalida" required>
                         </div>
-
-
                         <div class="form-group">
-
-                            <label for="horaSalida">
-                                Hora
-                            </label>
-
-                            <input type="time" id="horaSalida" name="horaSalida">
-
+                            <label for="horaSalida">Hora</label>
+                            <input type="time" id="horaSalida" name="horaSalida" required>
                         </div>
-
                     </div>
-
                 </div>
-
-
                 <div class="form-subsection">
-
-                    <h3>Llegada estimada</h3>
-
-
-                    <div class="form-subsection">
-
-                        <h3>Llegada estimada</h3>
-
-                        <div class="form-grid">
-
-                            <div class="form-group">
-
-                                <label for="fechaLlegada">
-                                    Fecha
-                                </label>
-
-                                <input type="date" id="fechaLlegada" name="fechaLlegada">
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label for="horaLlegada">
-                                    Hora
-                                </label>
-
-                                <input type="time" id="horaLlegada" name="horaLlegada">
-
-                            </div>
-
+                    <h3>Llegada</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fechaLlegada">Fecha</label>
+                            <input type="date" id="fechaLlegada" name="fechaLlegada" required>
                         </div>
-
-                        <!-- CITA DE LLEGADA -->
-                        <div class="form-group cita-checkbox">
-
-                            <label for="citaLlegada" class="checkbox-label">
-
-                                <input type="checkbox" id="citaLlegada" name="citaLlegada">
-
-                                <span>Cita de llegada asignada</span>
-
-                            </label>
-
+                        <div class="form-group">
+                            <label for="horaLlegada">Hora</label>
+                            <input type="time" id="horaLlegada" name="horaLlegada" required>
                         </div>
-
                     </div>
-
-
+                    <div class="form-group cita-checkbox">
+                        <label for="citaLlegada" class="checkbox-label">
+                            <input type="checkbox" id="citaLlegada" name="citaLlegada">
+                            <span>Cita de llegada asignada</span>
+                        </label>
+                    </div>
                 </div>
-
             </div>
-
+            <p class="availability-note">La disponibilidad se calcula con el periodo comprendido entre la salida y la llegada.</p>
         </div>
 
-
-
-        <!-- =========================
-     ASIGNACIÓN
-     ========================= -->
-
+        <!-- ASIGNACIÓN -->
         <div class="form-panel">
-
-            <div class="form-panel-header">
-                <h2>Asignación</h2>
-            </div>
-
+            <div class="form-panel-header"><h2>Asignación</h2></div>
             <div class="form-grid">
-
-                <!-- CAMIÓN -->
                 <div class="form-group">
-
-                    <label for="camion">
-                        Camión
-                    </label>
-
+                    <label for="camion">Camión</label>
                     <select id="camion" name="camion" required>
-                        <option value="">
-                            Cargando camiones...
-                        </option>
+                        <option value="">Cargando camiones...</option>
                     </select>
-
                 </div>
-
-                <!-- OPERADOR -->
                 <div class="form-group">
-
-                    <label for="operador">
-                        Operador
-                    </label>
-
+                    <label for="operador">Operador</label>
                     <select id="operador" name="operador" required>
-                        <option value="">
-                            Cargando operadores...
-                        </option>
+                        <option value="">Cargando operadores...</option>
                     </select>
-
                 </div>
-
-                <!-- TIPO DE SERVICIO -->
                 <div class="form-group">
-
-                    <label for="servicio">
-                        Tipo de servicio
-                    </label>
-
-                    <select id="servicio" name="servicio" required>
-                        <option value="">
-                            Cargando servicios...
-                        </option>
+                    <label for="remolque">Remolque</label>
+                    <select id="remolque" name="remolque" required>
+                        <option value="">Cargando remolques...</option>
                     </select>
-
                 </div>
-
             </div>
-
         </div>
 
-        <!-- =========================
-             CARGAS
-             ========================= -->
-
+        <!-- CARGAS -->
         <div class="form-panel">
-
             <div class="form-panel-header load-header">
-
                 <div>
                     <h2>Cargas</h2>
-
-                    <p>
-                        Agrega cada tipo de carga por separado
-                    </p>
+                    <p>Escribe manualmente cada tipo de carga y su peso unitario</p>
                 </div>
-
-                <button type="button" id="addLoadButton" class="add-load-button">
-                    + Agregar carga
-                </button>
-
+                <button type="button" id="addLoadButton" class="add-load-button">+ Agregar carga</button>
             </div>
-
-
             <div class="load-table-container">
-
                 <table class="load-table">
-
                     <thead>
-
                         <tr>
-
                             <th>Tipo de carga</th>
-
                             <th>Cantidad</th>
-
-                            <th>Unidad</th>
-
-                            <th>Peso</th>
-
-                            <th>Precio unitario</th>
-
-                            <th>Subtotal</th>
-
+                            <th>Peso unitario</th>
                             <th></th>
-
                         </tr>
-
                     </thead>
-
-
-                    <tbody id="loadTableBody">
-
-                        <!-- Las cargas aparecerán aquí -->
-
-                    </tbody>
-
+                    <tbody id="loadTableBody"></tbody>
                 </table>
-
             </div>
-
-
-            <!-- TOTAL -->
-
-            <div class="order-total">
-
-                <span>
-                    Peso total:
-                </span>
-
-                <strong id="totalWeight">
-                    0 kg
-                </strong>
-
-
-                <span>
-                    Total de la orden:
-                </span>
-
-                <strong id="orderTotal">
-                    $0.00
-                </strong>
-
+            <div class="order-total order-total-new">
+                <div class="form-group freight-cost">
+                    <label for="costoFlete">Costo de flete</label>
+                    <input type="number" id="costoFlete" name="costoFlete" min="0" step="0.01" value="0" required>
+                </div>
+                <div class="freight-total">
+                    <span>Total de la orden:</span>
+                    <strong id="orderTotal">$0.00</strong>
+                </div>
             </div>
-
         </div>
 
-
-        <!-- =========================
-             OBSERVACIONES
-             ========================= -->
-
+        <!-- OBSERVACIONES -->
         <div class="form-panel">
-
-            <div class="form-panel-header">
-                <h2>Observaciones</h2>
-            </div>
-
+            <div class="form-panel-header"><h2>Observaciones</h2></div>
             <div class="form-group">
-
-                <textarea id="observaciones" name="observaciones" rows="4"
-                    placeholder="Información adicional de la orden..."></textarea>
-
+                <textarea id="observaciones" name="observaciones" rows="4" placeholder="Información adicional de la orden..."></textarea>
             </div>
-
         </div>
 
-
-        <!-- =========================
-             BOTONES
-             ========================= -->
-
+        <!-- ACCIONES -->
         <div class="form-actions">
-
-            <button type="button" class="cancel-button">
-                Cancelar
-            </button>
-
-            <button type="submit" class="save-order-button">
-                Guardar orden
-            </button>
-
+            <button type="button" class="cancel-button">Cancelar</button>
+            <button type="submit" class="save-order-button">Guardar orden</button>
         </div>
-
 
     </form>
-
 </section>

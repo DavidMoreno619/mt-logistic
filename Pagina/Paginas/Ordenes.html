@@ -1,6 +1,6 @@
+
 <section class="orders-page">
 
-    <!-- ENCABEZADO -->
     <div class="orders-header">
 
         <div>
@@ -8,16 +8,20 @@
             <p>Administra y consulta las órdenes de transporte</p>
         </div>
 
-        <button type="button" class="new-order-button" id="newOrderButton">
+        <button type="button"
+                class="new-order-button"
+                id="newOrderButton">
             + Nueva orden
         </button>
 
     </div>
 
-    <!-- FILTROS -->
+
     <div class="orders-filters">
 
-        <input type="text" placeholder="Buscar orden o cliente..." class="order-search">
+        <input type="text"
+               placeholder="Buscar orden o cliente..."
+               class="order-search">
 
         <select class="order-filter">
             <option value="">Todos los estados</option>
@@ -37,13 +41,11 @@
     </div>
 
 
-    <!-- TABLA -->
     <div class="orders-table-container">
 
         <table class="orders-table">
 
             <thead>
-
                 <tr>
                     <th>Orden</th>
                     <th>Cliente</th>
@@ -54,165 +56,87 @@
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
-
             </thead>
-
 
             <tbody>
 
-                <tr>
-
+                <tr data-order="#1025">
                     <td>#1025</td>
-
-                    <td>
-                        Empresa A
-                    </td>
-
-                    <td>
-                        Guadalajara
-                    </td>
-
-                    <td>
-                        Monterrey
-                    </td>
-
-                    <td>
-                        MT-001
-                    </td>
-
-                    <td>
-                        22/08/2026
-                    </td>
-
+                    <td>Empresa A</td>
+                    <td>Guadalajara</td>
+                    <td>Monterrey</td>
+                    <td>MT-001</td>
+                    <td>22/08/2026</td>
                     <td>
                         <span class="order-status status-progress">
                             En curso
                         </span>
                     </td>
-
-                    <td>
-                        <button class="view-order">
-                            Ver
-                        </button>
+                    <td class="order-actions">
+                        <button class="view-order">Ver</button>
+                        <button class="edit-order">Editar</button>
+                        <button class="delete-order">Eliminar</button>
                     </td>
-
                 </tr>
 
 
-                <tr>
-
+                <tr data-order="#1024">
                     <td>#1024</td>
-
-                    <td>
-                        Empresa B
-                    </td>
-
-                    <td>
-                        León
-                    </td>
-
-                    <td>
-                        Guadalajara
-                    </td>
-
-                    <td>
-                        MT-004
-                    </td>
-
-                    <td>
-                        22/08/2026
-                    </td>
-
+                    <td>Empresa B</td>
+                    <td>León</td>
+                    <td>Guadalajara</td>
+                    <td>MT-004</td>
+                    <td>22/08/2026</td>
                     <td>
                         <span class="order-status status-pending">
                             Pendiente
                         </span>
                     </td>
-
-                    <td>
-                        <button class="view-order">
-                            Ver
-                        </button>
+                    <td class="order-actions">
+                        <button class="view-order">Ver</button>
+                        <button class="edit-order">Editar</button>
+                        <button class="delete-order">Eliminar</button>
                     </td>
-
                 </tr>
 
 
-                <tr>
-
+                <tr data-order="#1023">
                     <td>#1023</td>
-
-                    <td>
-                        Empresa C
-                    </td>
-
-                    <td>
-                        Tepic
-                    </td>
-
-                    <td>
-                        Ciudad de México
-                    </td>
-
-                    <td>
-                        MT-008
-                    </td>
-
-                    <td>
-                        21/08/2026
-                    </td>
-
+                    <td>Empresa C</td>
+                    <td>Tepic</td>
+                    <td>Ciudad de México</td>
+                    <td>MT-008</td>
+                    <td>21/08/2026</td>
                     <td>
                         <span class="order-status status-finished">
                             Finalizada
                         </span>
                     </td>
-
-                    <td>
-                        <button class="view-order">
-                            Ver
-                        </button>
+                    <td class="order-actions">
+                        <button class="view-order">Ver</button>
+                        <button class="edit-order">Editar</button>
+                        <button class="delete-order">Eliminar</button>
                     </td>
-
                 </tr>
 
 
-                <tr>
-
+                <tr data-order="#1022">
                     <td>#1022</td>
-
-                    <td>
-                        Empresa D
-                    </td>
-
-                    <td>
-                        Aguascalientes
-                    </td>
-
-                    <td>
-                        Querétaro
-                    </td>
-
-                    <td>
-                        MT-003
-                    </td>
-
-                    <td>
-                        21/08/2026
-                    </td>
-
+                    <td>Empresa D</td>
+                    <td>Aguascalientes</td>
+                    <td>Querétaro</td>
+                    <td>MT-003</td>
+                    <td>21/08/2026</td>
                     <td>
                         <span class="order-status status-cancelled">
                             Cancelada
                         </span>
                     </td>
-
-                    <td>
-                        <button class="view-order">
-                            Ver
-                        </button>
+                    <td class="order-actions">
+                        <button class="view-order">Ver</button>
+                        <button class="edit-order">Editar</button>
+                        <button class="delete-order">Eliminar</button>
                     </td>
-
                 </tr>
 
             </tbody>
