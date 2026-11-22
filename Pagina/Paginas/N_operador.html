@@ -1,0 +1,177 @@
+<section class="operator-form-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Agregar operador</h1>
+
+            <p>
+                Registra un nuevo operador
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <form
+        id="newOperatorForm"
+        class="form-card"
+    >
+
+        <h2>Información personal</h2>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="operatorName">
+                    Nombre completo
+                </label>
+
+                <input
+                    type="text"
+                    id="operatorName"
+                    placeholder="Ej. Juan Pérez"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="operatorPhone">
+                    Teléfono
+                </label>
+
+                <input
+                    type="tel"
+                    id="operatorPhone"
+                    placeholder="Ej. 33 1234 5678"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="operatorEmail">
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="operatorEmail"
+                    placeholder="correo@ejemplo.com"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="operatorLicense">
+                    Número de licencia
+                </label>
+
+                <input
+                    type="text"
+                    id="operatorLicense"
+                    placeholder="Ej. JAL-123456"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+        <h2 class="form-section-title">
+            Asignación
+        </h2>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="operatorTruck">
+                    Camión asignado
+                </label>
+
+                <select id="operatorTruck">
+
+                    <option value="">
+                        Sin asignar
+                    </option>
+
+                    <option value="MT-001">
+                        MT-001
+                    </option>
+
+                    <option value="MT-004">
+                        MT-004
+                    </option>
+
+                    <option value="MT-008">
+                        MT-008
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="operatorStatus">
+                    Estado
+                </label>
+
+                <select id="operatorStatus">
+
+                    <option value="Disponible">
+                        Disponible
+                    </option>
+
+                    <option value="En ruta">
+                        En ruta
+                    </option>
+
+                    <option value="Inactivo">
+                        Inactivo
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button
+                type="button"
+                class="secondary-button"
+                id="cancelOperator"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Guardar operador
+            </button>
+
+        </div>
+
+    </form>
+
+</section>

@@ -1,0 +1,83 @@
+<section class="operators-page">
+
+    <div class="page-header">
+
+        <div>
+            <h1>Operadores</h1>
+
+            <p>
+                Administración de los operadores de MT
+            </p>
+        </div>
+
+        <button
+            type="button"
+            class="primary-button"
+            id="newOperatorButton"
+        >
+            + Agregar operador
+        </button>
+
+    </div>
+
+
+    <div class="filters-panel">
+
+        <input
+            type="text"
+            id="operatorSearch"
+            placeholder="Buscar por nombre, teléfono o licencia..."
+        >
+
+        <select id="operatorStatusFilter">
+
+            <option value="">
+                Todos los estados
+            </option>
+
+            <option value="Disponible">
+                Disponible
+            </option>
+
+            <option value="En ruta">
+                En ruta
+            </option>
+
+            <option value="Inactivo">
+                Inactivo
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="table-panel">
+
+        <table class="trucks-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Operador</th>
+                    <th>Teléfono</th>
+                    <th>Licencia</th>
+                    <th>Camión asignado</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="operatorsTableBody">
+                
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
