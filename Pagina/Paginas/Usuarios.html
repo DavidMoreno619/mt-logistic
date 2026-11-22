@@ -1,0 +1,95 @@
+
+<form id="createUserForm" class="user-form">
+
+    <h2>Registrar usuario</h2>
+
+    <label>Nombre completo</label>
+    <input name="name" required placeholder="Nombre del usuario">
+
+    <label>Nombre de usuario</label>
+    <input name="username" required placeholder="Ejemplo: juan">
+
+    <label>Contraseña</label>
+    <input name="password" type="password" required minlength="6">
+
+    <!-- NUEVO CAMPO -->
+
+    <label>Tipo de usuario</label>
+    <input
+        name="tipo"
+        type="text"
+        required
+        placeholder="Ejemplo: Directivo, Contador, Supervisor"
+    >
+
+    <h3>Permisos de acceso</h3>
+
+    <div class="permissions-grid">
+
+        <label>
+            <input type="checkbox" id="selectAllPermissions">
+            Todos los permisos
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Dashboard">
+            Dashboard
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Ordenes">
+            Órdenes
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Monitoreo">
+            Monitoreo
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Camiones">
+            Unidades
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Remolques">
+            Remolques
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Operadores">
+            Operadores
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Clientes">
+            Clientes
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Facturacion">
+            Facturación
+        </label>
+
+        <label>
+            <input type="checkbox" name="permissions" value="Cobranza">
+            Cobranza
+        </label>
+
+    </div>
+
+    <button type="submit" class="primary-button">
+        Registrar usuario
+    </button>
+
+    <p id="userFormMessage"></p>
+
+</form>
+
+<div class="users-list-panel">
+
+    <h2>Usuarios registrados</h2>
+
+    <div id="usersList"></div>
+
+</div>
