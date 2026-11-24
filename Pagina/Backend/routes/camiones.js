@@ -1,35 +1,13 @@
-
 const express = require("express");
 const router = express.Router();
 const pool = require("../db");
-
-// Campos permitidos para evitar actualizaciones arbitrarias.
-const CAMPOS = [
-    "numero_camion",
-    "placas",
-    "marca",
-    "modelo",
-    "anio_unidad",
-    "capacidad",
-    "unidad_capacidad",
-    "estado",
-    "wialon_id"
-];
-
-const ESTADOS = [
-    "Disponible",
-    "En ruta",
-    "Mantenimiento",
-    "Inactivo"
-];
 
 function validarCamion(datos) {
     const obligatorios = [
         "numero_camion",
         "placas",
         "marca",
-        "modelo",
-        "capacidad"
+        "modelo"
     ];
 
     for (const campo of obligatorios) {
@@ -40,26 +18,6 @@ function validarCamion(datos) {
         ) {
             return `El campo ${campo} es obligatorio.`;
         }
-    }
-
-    const capacidad = Number(datos.capacidad);
-
-    if (!Number.isFinite(capacidad) || capacidad <= 0) {
-        return "La capacidad debe ser mayor que cero.";
-    }
-
-    if (
-        datos.unidad_capacidad !== undefined &&
-        !["toneladas", "kg"].includes(datos.unidad_capacidad)
-    ) {
-        return "La unidad de capacidad no es válida.";
-    }
-
-    if (
-        datos.estado !== undefined &&
-        !ESTADOS.includes(datos.estado)
-    ) {
-        return "El estado del camión no es válido.";
     }
 
     if (
@@ -90,12 +48,10 @@ function prepararDatos(datos) {
         modelo: String(datos.modelo).trim(),
         anio_unidad:
             datos.anio_unidad === "" ||
-            datos.anio_unidad === undefined
+            datos.anio_unidad === undefined ||
+            datos.anio_unidad === null
                 ? null
-                : datos.anio_unidad,
-        capacidad: Number(datos.capacidad),
-        unidad_capacidad: datos.unidad_capacidad || "toneladas",
-        estado: datos.estado || "Disponible",
+                : Number(datos.anio_unidad),
         wialon_id:
             datos.wialon_id && String(datos.wialon_id).trim()
                 ? String(datos.wialon_id).trim()
@@ -117,11 +73,7 @@ function responderError(res, error) {
     });
 }
 
-// =====================================================
-// GET /api/camiones
-// Lista camiones no archivados.
-// =====================================================
-
+// GET /api/camiones: lista camiones no archivados.
 router.get("/", async (req, res) => {
     try {
         const [camiones] = await pool.execute(`
@@ -132,9 +84,6 @@ router.get("/", async (req, res) => {
                 marca,
                 modelo,
                 anio_unidad,
-                capacidad,
-                unidad_capacidad,
-                estado,
                 wialon_id
             FROM camiones
             WHERE eliminado_en IS NULL
@@ -147,11 +96,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-// =====================================================
-// GET /api/camiones/:id
-// Consulta un camión activo.
-// =====================================================
-
+// GET /api/camiones/:id: consulta un camión no archivado.
 router.get("/:id", async (req, res) => {
     const id = Number(req.params.id);
 
@@ -163,7 +108,14 @@ router.get("/:id", async (req, res) => {
 
     try {
         const [camiones] = await pool.execute(
-            `SELECT *
+            `SELECT
+                id_camion,
+                numero_camion,
+                placas,
+                marca,
+                modelo,
+                anio_unidad,
+                wialon_id
              FROM camiones
              WHERE id_camion = ?
                AND eliminado_en IS NULL`,
@@ -182,18 +134,12 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// =====================================================
-// POST /api/camiones
-// Registra un camión.
-// =====================================================
-
+// POST /api/camiones: registra un camión.
 router.post("/", async (req, res) => {
     const errorValidacion = validarCamion(req.body);
 
     if (errorValidacion) {
-        return res.status(400).json({
-            error: errorValidacion
-        });
+        return res.status(400).json({ error: errorValidacion });
     }
 
     const datos = prepararDatos(req.body);
@@ -206,20 +152,14 @@ router.post("/", async (req, res) => {
                 marca,
                 modelo,
                 anio_unidad,
-                capacidad,
-                unidad_capacidad,
-                estado,
                 wialon_id
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            ) VALUES (?, ?, ?, ?, ?, ?)`,
             [
                 datos.numero_camion,
                 datos.placas,
                 datos.marca,
                 datos.modelo,
                 datos.anio_unidad,
-                datos.capacidad,
-                datos.unidad_capacidad,
-                datos.estado,
                 datos.wialon_id
             ]
         );
@@ -233,11 +173,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-// =====================================================
-// PUT /api/camiones/:id
-// Actualiza un camión existente.
-// =====================================================
-
+// PUT /api/camiones/:id: actualiza un camión.
 router.put("/:id", async (req, res) => {
     const id = Number(req.params.id);
 
@@ -250,9 +186,7 @@ router.put("/:id", async (req, res) => {
     const errorValidacion = validarCamion(req.body);
 
     if (errorValidacion) {
-        return res.status(400).json({
-            error: errorValidacion
-        });
+        return res.status(400).json({ error: errorValidacion });
     }
 
     const datos = prepararDatos(req.body);
@@ -265,9 +199,6 @@ router.put("/:id", async (req, res) => {
                  marca = ?,
                  modelo = ?,
                  anio_unidad = ?,
-                 capacidad = ?,
-                 unidad_capacidad = ?,
-                 estado = ?,
                  wialon_id = ?
              WHERE id_camion = ?
                AND eliminado_en IS NULL`,
@@ -277,9 +208,6 @@ router.put("/:id", async (req, res) => {
                 datos.marca,
                 datos.modelo,
                 datos.anio_unidad,
-                datos.capacidad,
-                datos.unidad_capacidad,
-                datos.estado,
                 datos.wialon_id,
                 id
             ]
@@ -301,19 +229,13 @@ router.put("/:id", async (req, res) => {
             }
         }
 
-        res.json({
-            mensaje: "Camión actualizado correctamente."
-        });
+        res.json({ mensaje: "Camión actualizado correctamente." });
     } catch (error) {
         responderError(res, error);
     }
 });
 
-// =====================================================
-// DELETE /api/camiones/:id
-// Baja lógica: no borra físicamente el registro.
-// =====================================================
-
+// DELETE /api/camiones/:id: baja lógica mediante eliminado_en.
 router.delete("/:id", async (req, res) => {
     const id = Number(req.params.id);
 
@@ -324,7 +246,6 @@ router.delete("/:id", async (req, res) => {
     }
 
     try {
-        // Verificar que el camión exista y no esté archivado.
         const [camiones] = await pool.execute(
             `SELECT id_camion, numero_camion
              FROM camiones
@@ -339,7 +260,6 @@ router.delete("/:id", async (req, res) => {
             });
         }
 
-        // No permitir archivar unidades con órdenes activas.
         const [ordenesActivas] = await pool.execute(
             `SELECT id_orden
              FROM ordenes
@@ -352,16 +272,13 @@ router.delete("/:id", async (req, res) => {
 
         if (ordenesActivas.length > 0) {
             return res.status(409).json({
-                error:
-                    "No se puede archivar esta unidad porque tiene órdenes pendientes o en curso."
+                error: "No se puede archivar esta unidad porque tiene órdenes pendientes o en curso."
             });
         }
 
-        // Baja lógica: conserva el registro y su historial.
         const [resultado] = await pool.execute(
             `UPDATE camiones
-             SET eliminado_en = CURRENT_TIMESTAMP,
-                 estado = 'Inactivo'
+             SET eliminado_en = CURRENT_TIMESTAMP
              WHERE id_camion = ?
                AND eliminado_en IS NULL`,
             [id]
